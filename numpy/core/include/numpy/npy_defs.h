@@ -56,7 +56,6 @@ struct PyArray_Dims;
 
 
 typedef PyObject NpyObject;                             /* An object opaque to core but understood by the interface layer */
-typedef struct PyArrayObject NpyArray;
 typedef struct _PyArray_Descr NpyArray_Descr;
 typedef struct _arr_descr NpyArray_ArrayDescr;
 typedef struct PyArray_DatetimeMetaData NpyArray_DatetimeMetaData;

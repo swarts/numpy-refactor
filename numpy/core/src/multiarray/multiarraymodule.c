@@ -161,7 +161,7 @@ PyArray_AsCArray(PyObject **op, void *ptr, intp *dims, int nd,
        a leak or I just need more coffee. */
     Py_INCREF(typedescr);
     oldAp = ap;
-    result = NpyArray_AsCArray(&ap, ptr, dims, nd, typedescr);
+    result = NpyArray_AsCArray(&PyArray_ARRAY(ap), ptr, dims, nd, typedescr);
     Py_DECREF(oldAp);
     *op = (PyObject *) ap;
     return result;
@@ -400,7 +400,7 @@ NPY_NO_EXPORT NPY_SCALARKIND
 PyArray_ScalarKind(int typenum, PyArrayObject **arr)
 {
     /* TODO: Unwrap array objects. */
-    return NpyArray_ScalarKind(typenum, arr);
+    return NpyArray_ScalarKind(typenum, &PyArray_ARRAY(*arr));
 }
 
 

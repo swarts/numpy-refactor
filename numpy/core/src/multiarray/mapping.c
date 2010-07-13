@@ -93,7 +93,7 @@ array_big_item(PyArrayObject *self, intp i)
         return NULL;
     }
     PyArray_BASE_ARRAY(r) = PyArray_ARRAY(self);
-    Npy_INCREF(PyArray_BASE_ARRAY(r)); 
+    _Npy_INCREF(PyArray_BASE_ARRAY(r)); 
     ASSERT_ONE_BASE(r);
     PyArray_UpdateFlags(r, CONTIGUOUS | FORTRAN);
     return (PyObject *)r;
@@ -430,7 +430,7 @@ add_new_axes_0d(PyArrayObject *arr,  int newaxis_count)
         return NULL;
     
     PyArray_BASE_ARRAY(other) = PyArray_ARRAY(arr);
-    Npy_INCREF(PyArray_BASE_ARRAY(other));
+    _Npy_INCREF(PyArray_BASE_ARRAY(other));
     ASSERT_ONE_BASE(other);
     return (PyObject *)other;
 }
@@ -561,7 +561,7 @@ array_subscript_simple(PyArrayObject *self, PyObject *op)
         return NULL;
     }
     PyArray_BASE_ARRAY(other) = PyArray_ARRAY(self);
-    Npy_INCREF(PyArray_BASE_ARRAY(other));
+    _Npy_INCREF(PyArray_BASE_ARRAY(other));
     PyArray_UpdateFlags(other, UPDATE_ALL);
     ASSERT_ONE_BASE(other);
     return (PyObject *)other;
@@ -1262,8 +1262,8 @@ PyArray_MapIterBind(PyArrayMapIterObject *pyMit, PyArrayObject *arr)
     if (sub == NULL) {
         goto fail;
     }
-    mit->subspace = NpyArray_IterNew((NpyArray *)sub);      /* TODO: Unwrap array */
-    Npy_DECREF((NpyArray *)sub);
+    mit->subspace = NpyArray_IterNew(PyArray_ARRAY(sub));
+    Py_DECREF(sub);
     if (mit->subspace == NULL) {
         goto fail;
     }

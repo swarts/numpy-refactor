@@ -47,7 +47,7 @@ PyCapsule_GetPointer(void *ptr, void *notused)
     do {                                                \
         if (PyArray_Check(b)) {                         \
             PyArray_BASE_ARRAY(a) = PyArray_ARRAY(b);   \
-            Npy_INCREF(PyArray_BASE_ARRAY(a));          \
+            _Npy_INCREF(PyArray_BASE_ARRAY(a));          \
         } else {                                        \
             PyArray_BASE(a) = (PyObject*) b;            \
             Py_INCREF(b);                               \

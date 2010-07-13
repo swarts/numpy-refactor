@@ -1079,7 +1079,7 @@ iter_array(PyArrayIterObject *pit, PyObject *NPY_UNUSED(op))
         PyArray_FLAGS(r) |= UPDATEIFCOPY;
         it->ao->flags &= ~WRITEABLE;
     }
-    Npy_INCREF(it->ao);
+    _Npy_INCREF(it->ao);
     PyArray_BASE_ARRAY(r) = it->ao;
     assert(NULL == PyArray_BASE_ARRAY(r) || NULL == PyArray_BASE(r));
     

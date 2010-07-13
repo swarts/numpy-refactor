@@ -348,7 +348,7 @@ PyArray_View(PyArrayObject *self, PyArray_Descr *type, PyTypeObject *pytype)
     
     /* TODO: Unwrap array structure, increment NpyArray, not PyArrayObject refcnt. */
     PyArray_BASE_ARRAY(new) = PyArray_ARRAY(self);
-    Npy_INCREF(PyArray_BASE_ARRAY(new));
+    _Npy_INCREF(PyArray_BASE_ARRAY(new));
     assert(NULL == PyArray_BASE_ARRAY(new) || NULL == PyArray_BASE(new));
 
     if (type != NULL) {

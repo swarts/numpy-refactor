@@ -78,7 +78,7 @@ array_slice(PyArrayObject *self, Py_ssize_t ilow,
         return NULL;
     }
     PyArray_BASE_ARRAY(r) = PyArray_ARRAY(self);
-    Npy_INCREF(PyArray_BASE_ARRAY(r));
+    _Npy_INCREF(PyArray_BASE_ARRAY(r));
     assert(NULL == PyArray_BASE_ARRAY(r) || NULL == PyArray_BASE(r));
     PyArray_UpdateFlags(r, UPDATE_ALL);
     return (PyObject *)r;

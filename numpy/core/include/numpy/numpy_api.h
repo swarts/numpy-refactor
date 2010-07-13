@@ -345,11 +345,11 @@ void NpyArray_TimedeltaToTimedeltaStruct(npy_timedelta val, NPY_DATETIMEUNIT fr,
 /* These operate on the elements IN the array, not the array itself. */
 /* TODO: Would love to rename these, easy to misread NpyArray_XX and Npy_XX */
 #define NpyArray_REFCOUNT(a) PyArray_REFCOUNT(a)
-#define NpyArray_INCREF(a) PyArray_INCREF(a)
-#define NpyArray_DECREF(a) PyArray_DECREF(a)
-#define NpyArray_XDECREF(a) PyArray_XDECREF(a)
+#define NpyArray_INCREF(a) PyArray_INCREF(Npy_INTERFACE(a))
+#define NpyArray_DECREF(a) PyArray_DECREF(Npy_INTERFACE(a))
+#define NpyArray_XDECREF(a) PyArray_XDECREF(Npy_INTERFACE(a))
 
-#define NpyArray_XDECREF_ERR(a) PyArray_XDECREF_ERR(a)
+#define NpyArray_XDECREF_ERR(a) PyArray_XDECREF_ERR(Npy_INTERFACE(a))
 #define NpyArray_Item_INCREF(a, descr) PyArray_Item_INCREF(a, descr)
 #define NpyArray_Item_XDECREF(a, descr) PyArray_Item_XDECREF(a, descr)
 

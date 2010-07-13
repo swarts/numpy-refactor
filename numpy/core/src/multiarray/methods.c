@@ -736,7 +736,7 @@ array_wraparray(PyArrayObject *self, PyObject *args)
         }
         if (PyArray_Check(arr)) {
             PyArray_BASE_ARRAY(arr) = PyArray_ARRAY(arr);
-            Npy_INCREF(PyArray_BASE_ARRAY(arr));
+            _Npy_INCREF(PyArray_BASE_ARRAY(arr));
         } else {
             PyArray_BASE(ret) = arr;
             Py_INCREF(PyArray_BASE(ret));
@@ -782,7 +782,7 @@ array_preparearray(PyArrayObject *self, PyObject *args)
     }
     if (PyArray_Check(arr)) {
         PyArray_BASE_ARRAY(ret) = PyArray_ARRAY(arr);
-        Npy_INCREF(PyArray_BASE_ARRAY(ret));
+        _Npy_INCREF(PyArray_BASE_ARRAY(ret));
     } else {
         PyArray_BASE(ret) = arr;
         Py_INCREF(PyArray_BASE(ret));
@@ -826,7 +826,7 @@ array_getarray(PyArrayObject *self, PyObject *args)
             return NULL;
         }
         PyArray_BASE_ARRAY(new) = PyArray_ARRAY(self);
-        Npy_INCREF(PyArray_BASE_ARRAY(new));
+        _Npy_INCREF(PyArray_BASE_ARRAY(new));
         /* TODO: Check if we are leaking new. */
         self = new;
         ASSERT_ONE_BASE(self);
@@ -1373,7 +1373,7 @@ array_setstate(PyArrayObject *self, PyObject *args)
         }
         PyArray_FLAGS(self) &= ~OWNDATA;
     }
-    Npy_XDECREF(PyArray_BASE_ARRAY(self));
+    _Npy_XDECREF(PyArray_BASE_ARRAY(self));
     Py_XDECREF(PyArray_BASE(self));
     PyArray_BASE_ARRAY(self) = NULL;
     PyArray_BASE(self) = NULL;
@@ -1441,7 +1441,7 @@ array_setstate(PyArrayObject *self, PyObject *args)
                 /* TODO: Check for leak of rawdata. */
                 PyArray_BASE_ARRAY(self) = PyArray_ARRAY(rawdata);
                 if (incref_base) {
-                    Npy_INCREF(PyArray_BASE_ARRAY(self));
+                    _Npy_INCREF(PyArray_BASE_ARRAY(self));
                 }
             } else {
                 PyArray_BASE(self) = rawdata;
@@ -2035,7 +2035,7 @@ array_setflags(PyArrayObject *self, PyObject *args, PyObject *kwds)
             PyArray_FLAGS(self) &= ~UPDATEIFCOPY;
             Py_XDECREF(PyArray_BASE(self));
             PyArray_BASE(self) = NULL;
-            Npy_XDECREF(PyArray_BASE_ARRAY(self));
+            _Npy_XDECREF(PyArray_BASE_ARRAY(self));
             PyArray_BASE_ARRAY(self) = NULL;
         }
     }

@@ -583,22 +583,11 @@ typedef struct _arr_descr {
  */
 
 typedef struct PyArrayObject {
-        PyObject_HEAD
-        int magic_number;       /* Initialized to NPY_VALID_MAGIC initialization and NPY_INVALID_MAGIC on dealloc */
-        void *nob_interface;        /* Interface-specific wrapper, may be NULL */
-        char *data;             /* pointer to raw data buffer */
-        int nd;                 /* number of dimensions, also called ndim */
-        npy_intp *dimensions;   /* size in each dimension */
-        npy_intp *strides;      /*
-                                 * bytes to jump to get to the
-                                 * next element in each dimension
-                                 */
-        struct PyArrayObject *base_arr; /* Base when it's specifically an array object */
-        void *base_obj;         /* Base when it's an opaque interface object */
-    
-        PyArray_Descr *descr;   /* Pointer to type structure */
-        int flags;              /* Flags describing array -- see below */
-        PyObject *weakreflist;  /* For weakreferences */
+    PyObject_HEAD
+    int magic_offset;
+    int magic_number;       /* Initialized to NPY_VALID_MAGIC initialization and NPY_INVALID_MAGIC on dealloc */
+    NpyArray *array;
+    PyObject *weakreflist;  /* For weakreferences */
 } PyArrayObject;
 
 #define NPY_AO PyArrayObject
@@ -755,7 +744,8 @@ typedef int (PyArray_FinalizeFunc)(PyArrayObject *, PyObject *);
  * here.
  */
 
-#define PyArray_ARRAY(m) ((m) ? assert(PyArray_Check(m)),((PyArrayObject *)(m)) : NULL)
+#define PyArray_ARRAY(m) (((PyArrayObject *)(m))->array)
+#define Pyarray_XARRAY(m) ((m) ? ((PyArrayObject *)(m))->array : NULL)
 #define PAA(m) PyArray_ARRAY(m)
 
 #define PyArray_CHKFLAGS(m, FLAGS) NpyArray_CHKFLAGS(PAA(m), FLAGS)

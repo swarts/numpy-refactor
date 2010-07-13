@@ -487,7 +487,7 @@ _flat_copyinto(NpyArray *dst, NpyArray *src, NPY_ORDER order)
     NPY_END_THREADS;
     
     if (src != orig_src) {
-        Npy_DECREF(src);
+        _Npy_DECREF(src);
     }
     _Npy_DECREF(it);
     return 0;

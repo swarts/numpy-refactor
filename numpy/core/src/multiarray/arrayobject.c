@@ -1168,7 +1168,7 @@ array_new(PyTypeObject *subtype, PyObject *args, PyObject *kwds)
         /* TODO: This will be an issue.  Probably need to split buffer.base or we have to unwrap it. */
         if (PyArray_Check(buffer.base)) {
             PyArray_BASE_ARRAY(ret) = (NpyArray *)buffer.base;
-            Npy_INCREF(PyArray_BASE_ARRAY(ret));
+            _Npy_INCREF(PyArray_BASE_ARRAY(ret));
         } else {
             PyArray_BASE(ret) = buffer.base;
             Py_INCREF(buffer.base);
